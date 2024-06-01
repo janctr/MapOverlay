@@ -1,0 +1,14 @@
+.map-overlay {
+    position: absolute;
+    padding: 0.25rem 0.5rem;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    width: 200px;
+    height: 100%;
+    left: 0;
+}
+
+.map-overlay > .content {
+    height: 100%;
+}
