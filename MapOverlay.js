@@ -69,8 +69,18 @@ define(['qlik', 'text!./template.html', 'css!./index.css'], function (
             return true;
         }
 
+        const wrapperStyles = [];
+
+        if (typeof layout.opacity === 'number') {
+            wrapperStyles.push({ prop: 'opacity', value: layout.opacity });
+        }
+
+        const styles = wrapperStyles
+            .map((style) => `${style.prop}: ${style.value}`)
+            .join('; ');
+
         const overlayEl = $(
-            `<div id="${layout.qInfo.qId}-container" class="map-overlay">
+            `<div id="${layout.qInfo.qId}-container" class="map-overlay" style="${styles}">
                 <div id="${layout.qInfo.qId}-masterobject" class="content"
                 style="position: relative !important; padding: 0 !important;"></div>
             </div>`
@@ -112,10 +122,10 @@ define(['qlik', 'text!./template.html', 'css!./index.css'], function (
             type: 'items',
             component: 'accordion',
             items: {
-                masterObjects: {
+                settings: {
                     type: 'items',
-                    label: 'Master object',
-                    translation: 'Master objects',
+                    label: 'Settings',
+                    translation: 'Settings',
                     items: {
                         masterObject: {
                             type: 'string',
@@ -124,6 +134,16 @@ define(['qlik', 'text!./template.html', 'css!./index.css'], function (
                             ref: 'masterObjectId',
                             defaultValue: '',
                             options: getMasterObjects(),
+                        },
+                        opacity: {
+                            type: 'number',
+                            component: 'slider',
+                            label: 'Opacity',
+                            ref: 'opacity',
+                            defaultValue: 1,
+                            min: 0,
+                            max: 1,
+                            step: 0.1,
                         },
                     },
                 },
