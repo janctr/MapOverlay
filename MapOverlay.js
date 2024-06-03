@@ -75,6 +75,10 @@ define(['qlik', 'text!./template.html', 'css!./index.css'], function (
             wrapperStyles.push({ prop: 'opacity', value: layout.opacity });
         }
 
+        if (typeof layout.width === 'number') {
+            wrapperStyles.push({ prop: 'width', value: `${layout.width}px` });
+        }
+
         const styles = wrapperStyles
             .map((style) => `${style.prop}: ${style.value}`)
             .join('; ');
@@ -134,6 +138,13 @@ define(['qlik', 'text!./template.html', 'css!./index.css'], function (
                             ref: 'masterObjectId',
                             defaultValue: '',
                             options: getMasterObjects(),
+                        },
+                        width: {
+                            type: 'number',
+                            label: 'Width of container (px)',
+                            ref: 'width',
+                            defaultValue: 200,
+                            expression: 'optional',
                         },
                         opacity: {
                             type: 'number',
